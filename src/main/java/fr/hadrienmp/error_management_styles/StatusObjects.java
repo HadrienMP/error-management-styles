@@ -1,9 +1,9 @@
-package fr.hadrienmp.codefight;
+package fr.hadrienmp.error_management_styles;
 
-import fr.hadrienmp.codefight.other.FlashMessages;
-import fr.hadrienmp.codefight.other.Request;
-import fr.hadrienmp.codefight.other.Response;
-import fr.hadrienmp.codefight.other.UpdateAddressForm;
+import fr.hadrienmp.error_management_styles.other.FlashMessages;
+import fr.hadrienmp.error_management_styles.other.Request;
+import fr.hadrienmp.error_management_styles.other.Response;
+import fr.hadrienmp.error_management_styles.other.UpdateAddressForm;
 
 public class StatusObjects {
     private final FlashMessages flashMessages;

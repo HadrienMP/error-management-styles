@@ -1,4 +1,4 @@
-package fr.hadrienmp.codefight.other;
+package fr.hadrienmp.error_management_styles.other;
 
 public class UpdateAddressForm {
     public UpdateAddressForm(Request request) {

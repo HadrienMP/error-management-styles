@@ -1,11 +1,11 @@
-package fr.hadrienmp.codefight;
+package fr.hadrienmp.error_management_styles;
 
-import fr.hadrienmp.katas.exceptions.other.BusinessException;
-import fr.hadrienmp.katas.exceptions.other.FlashMessages;
-import fr.hadrienmp.katas.exceptions.other.Home;
-import fr.hadrienmp.katas.exceptions.other.Request;
-import fr.hadrienmp.katas.exceptions.other.Response;
-import fr.hadrienmp.katas.exceptions.other.UpdateAddressForm;
+import fr.hadrienmp.error_management_styles.other.BusinessException;
+import fr.hadrienmp.error_management_styles.other.FlashMessages;
+import fr.hadrienmp.error_management_styles.other.Home;
+import fr.hadrienmp.error_management_styles.other.Request;
+import fr.hadrienmp.error_management_styles.other.Response;
+import fr.hadrienmp.error_management_styles.other.UpdateAddressForm;
 
 public class BooleanAndException {
     private final FlashMessages flashMessages;
