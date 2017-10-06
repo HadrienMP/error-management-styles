@@ -1,47 +1,37 @@
 package fr.hadrienmp.error_management_styles;
 
-import com.jasongoodwin.monads.Try;
-import fr.hadrienmp.error_management_styles.other.FlashMessages;
-import fr.hadrienmp.error_management_styles.other.Home;
-import fr.hadrienmp.error_management_styles.other.Request;
-import fr.hadrienmp.error_management_styles.other.Response;
-import fr.hadrienmp.error_management_styles.other.UpdateAddressForm;
+import fr.hadrienmp.error_management_styles.support_classes.AccountPage;
+import fr.hadrienmp.error_management_styles.support_classes.Request;
+import fr.hadrienmp.error_management_styles.support_classes.Response;
+import fr.hadrienmp.error_management_styles.support_classes.ResponseBuilder;
+import fr.hadrienmp.error_management_styles.support_classes.UpdateAddressForm;
+import fr.hadrienmp.error_management_styles.support_classes.UpdateAddressWebService;
 
-import java.net.URL;
+public class Monads2 implements EditAdressPage {
 
-public class Monads2 {
-    private final FlashMessages flashMessages;
-
-    public Monads2(FlashMessages flashMessages) {
-        this.flashMessages = flashMessages;
+    private UpdateAddressWebService webService;
+    public Monads2(UpdateAddressWebService webService) {
+        this.webService = webService;
     }
 
+    @Override
     public Response updateAddress(Request request) {
-        return Try.ofFailable(() -> new UpdateAddressForm(request))
-                .flatMap(form -> updateUserAddress(form.userId(), form.address()))
-                .map(v -> ResponseBuilder.redirectTo(Home.URL)
-                        .withMessage("You updated your address, congratulations !")
-                        .response())
-                .recover(e -> ResponseBuilder.redirectTo(request.referer())
-                        .withMessage("Sorry your request was denied, it contained the following errors : ")
-                        .response());
+        return UpdateAddressForm.from(request)
+                .flatMap(form -> webService.tryUpdateUserAddress(form.userId(), form.address()))
+                .map(this::successResponse)
+                .recover(this::failResponse);
     }
 
-    private Try<Void> updateUserAddress(Object userId, Object address) {
-        return Try.successful(null);
+    private Response successResponse(Void v) {
+        return ResponseBuilder.redirectTo(AccountPage.URL)
+                .withMessage("You updated your address, congratulations !")
+                .response();
     }
 
-    private static class ResponseBuilder {
-        public static ResponseBuilder redirectTo(URL url) {
-            return new ResponseBuilder();
-        }
-
-        public ResponseBuilder withMessage(String message) {
-            return this;
-        }
-
-        public Response response() {
-            return new Response();
-        }
+    private Response failResponse(Throwable e) {
+        return ResponseBuilder.redirectTo(EditAdressPage.URL)
+                .withMessage("Sorry your request was denied, it contained the following errors : " + e.getMessage())
+                .response();
     }
+
 }
