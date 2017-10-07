@@ -1,21 +1,15 @@
 package fr.hadrienmp.error_management_styles.support_classes;
 
-import java.net.URL;
+import lombok.AllArgsConstructor;
+
 import java.util.Map;
 import java.util.Optional;
 
+@AllArgsConstructor
 public class Request {
-    public final Map<String, String> params;
+    private final Map<String, String> params;
 
-    public Request(Map<String, String> params) {
-        this.params = params;
-    }
-
-    public URL referer() {
-        return null;
-    }
-
-    public Optional<String> formField(String address) {
-        return Optional.ofNullable(params.get(address));
+    Optional<String> formField(String paramName) {
+        return Optional.ofNullable(params.get(paramName));
     }
 }

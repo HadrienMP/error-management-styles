@@ -6,8 +6,4 @@ import lombok.Data;
 public class Response {
     private final String redirectUrl;
     private final String message;
-
-    public static Response redirectTo(String referer) {
-        return null;
-    }
 }

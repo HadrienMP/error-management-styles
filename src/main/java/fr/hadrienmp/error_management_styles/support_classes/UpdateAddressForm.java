@@ -34,12 +34,16 @@ public class UpdateAddressForm {
         return address;
     }
 
-    public static Try<UpdateAddressForm> from(Request request) {
+    public static UpdateAddressForm tryToCreate(Request request) {
         UpdateAddressForm updateAddressForm = new UpdateAddressForm(request);
         if (updateAddressForm.isValid()) {
-            return Try.successful(updateAddressForm);
+            return updateAddressForm;
         } else {
-            return Try.failure(new BusinessException(updateAddressForm.errors()));
+            throw new BusinessException(updateAddressForm.errors());
         }
+    }
+
+    public static Try<UpdateAddressForm> from(Request request) {
+        return Try.ofFailable(() -> tryToCreate(request));
     }
 }

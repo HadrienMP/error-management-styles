@@ -6,6 +6,6 @@ public class BusinessException extends RuntimeException {
     }
 
     public String errors() {
-        return null;
+        return getMessage();
     }
 }
